@@ -9,7 +9,6 @@
 </head>
 <body >
     <form id="form1" runat="server">
-
             <div class="centerdiv">
                 <table>
                     <tr>
@@ -21,13 +20,9 @@
                         </td>
                     </tr>
                 </table>
-            
-            
             </div>
-
             <div>
                 <asp:Image ID="imgTeamLogo" runat="server" CssClass="displayed"/>
-
             </div>
             <br />
             <div>
@@ -37,7 +32,6 @@
             <div class="center">
                 <asp:LinkButton ID="lnkWebSite" runat="server" />
             </div>
-
     </form>
 </body>
 </html>
