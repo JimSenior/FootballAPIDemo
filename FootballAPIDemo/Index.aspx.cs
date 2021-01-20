@@ -31,23 +31,26 @@ namespace FootballAPIDemo
         private async Task PopulatControls(string url)
         {
             var teams = await GetTeams(url);
-            foreach(Team t in teams.teams)
+            if (teams != null)
             {
-                TeamList.TeamNames.Add(t.strTeam);
+                foreach (Team t in teams.teams)
+                {
+                    TeamList.TeamNames.Add(t.strTeam);
+                }
+
+                ddlTeams.DataSource = TeamList.TeamNames;
+                ddlTeams.DataBind();
+
+                imgTeamLogo.ImageUrl = teams.teams.First().strTeamLogo;
+                lblTeamDescription.Text = teams.teams.First().strDescriptionEN.Replace("\r\n", "<br />");
+
+                ddlLanguage.Items.Add(new ListItem("English", "EN"));
+                ddlLanguage.Items.Add(new ListItem("Espanol", "ES"));
+                ddlLanguage.Items.Add(new ListItem("Deutsche", "DE"));
+
+                lnkWebSite.Text = "Visit " + teams.teams.First().strTeam + " website";
+                lnkWebSite.PostBackUrl = "https://" + teams.teams.First().strWebsite;
             }
-
-            ddlTeams.DataSource = TeamList.TeamNames;
-            ddlTeams.DataBind();
-
-            imgTeamLogo.ImageUrl = teams.teams.First().strTeamLogo;
-            lblTeamDescription.Text = teams.teams.First().strDescriptionEN.Replace("\r\n","<br />");
-
-            ddlLanguage.Items.Add(new ListItem("English", "EN"));
-            ddlLanguage.Items.Add(new ListItem("Espanol", "ES"));
-            ddlLanguage.Items.Add(new ListItem("Deutsche", "DE"));
-
-            lnkWebSite.Text = "Visit " + teams.teams.First().strTeam + " website";
-            lnkWebSite.PostBackUrl = "https://" + teams.teams.First().strWebsite;
         }
 
         protected  void ddlTeams_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,12 +60,9 @@ namespace FootballAPIDemo
             RerenderPage(url);
         }
 
-
-
-
-
         protected async Task<Teams> GetTeams(string url)
         {
+            
             var data = await ApiCaller.GetData(url);
             var teams = JsonConvert.DeserializeObject<Teams>(data);
             return teams;
@@ -102,7 +102,7 @@ namespace FootballAPIDemo
                     break;
             }
             imgTeamLogo.ImageUrl = selected.FirstOrDefault().strTeamLogo;
-            lblTeamDescription.Text = sb.ToString();//teams.teams.First().strDescriptionEN;
+            lblTeamDescription.Text = sb.ToString();
             lnkWebSite.PostBackUrl = "https://"+selected.FirstOrDefault().strWebsite;
             lnkWebSite.Text = "Visit " + selected.FirstOrDefault().strTeam + " website";
         }

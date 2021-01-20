@@ -9,7 +9,6 @@ namespace FootballAPIDemo.Model
     {
         public string idTeam { get; set; }
         public string strTeam { get; set; }
-
         public string strTeamLogo { get; set; }
         public string strTeamShort { get; set; }
         public string strAlternate { get; set; }
@@ -30,8 +29,6 @@ namespace FootballAPIDemo.Model
         public string strDescriptionNO { get; set; }
         public object strDescriptionIL { get; set; }
         public object strDescriptionPL { get; set; }
-
-        
         public string strTeamBanner { get; set; }
 
     }
